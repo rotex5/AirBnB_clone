@@ -20,13 +20,13 @@ class BaseModel:
                 if name == "created_at" or name == "updated_at":
                     value = datetime.fromisoformat(value)
                 setattr(self, name, value)
+        else:
+            self.id = str(uuid4())
 
-        self.id = str(uuid4())
-
-        dt_now = datetime.now(timezone.utc)
-        self.created_at = dt_now
-        self.updated_at = dt_now
-        models.storage.new(self)
+            dt_now = datetime.now(timezone.utc)
+            self.created_at = dt_now
+            self.updated_at = dt_now
+            models.storage.new(self)
 
     def __str__(self):
         """returns str representation of basemodel instance
